@@ -1,155 +1,79 @@
-.send-tx-form {
-  flex: 1;
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  gap: 20px;
+.tx-form {
+  text-align: center;
   padding: 20px;
-  align-items: center;
-
-  h3 {
-    color: white;
-    opacity: 0.8;
-    font-size: 28px;
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: #1f2937;
   }
 
-  > div:nth-child(2) {
-    width: 100%;
-
-    span {
-      word-break: break-word;
-    }
+  .domain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
   }
 
-  > button {
-    border: none;
-    padding: 7px 15px;
-    border-radius: 15px;
-    cursor: pointer;
-
-    background-color: rgba(102,170,238,0.91);
-    color: white;
-    font-size: 16px;
-    line-height: 20px;
-
-    transition: transform 0.1s ease-in-out;
+  .domain-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
-      transform: scale(1.03);
+      transform: translateY(-5px);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
     }
 
-    &:active {
-      transform: scale(0.97);
+    h3 {
+      font-size: 0.75rem;
+      margin-bottom: 5px;
+      color: #111827;
+      word-break: break-all;
+    }
+
+    .price {
+      font-size: 0.875rem;
+      margin-bottom: 10px;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .ton-symbol {
+        margin-left: 5px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .buy-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #3b82f6;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #2563eb;
+      }
+
+      &:disabled {
+        background-color: #9ca3af;
+        cursor: not-allowed;
+      }
+
+      &.sold {
+        background-color: #d1d5db;
+        cursor: not-allowed;
+      }
     }
   }
 }
-.tx-form {
-    text-align: center;
-    padding: 20px;
-}
-
-.domain-list {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
-
-.domain-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.domain-button:hover {
-    background-color: #0056b3;
-}
-
-.selected-domain {
-    margin-top: 20px;
-}
-
-.buy-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.buy-button:hover {
-    background-color: #218838;
-}
-.tx-form {
-    text-align: center;
-    padding: 40px 0;
-
-    h2 {
-        font-size: 2rem;
-        margin-bottom: 40px;
-        color: #1f2937;
-    }
-
-    .domain-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-    }
-
-    .domain-card {
-        background-color: #ffffff;
-        border-radius: 10px;
-        padding: 30px 20px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-        &:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #111827;
-            word-break: break-all;
-        }
-
-        .price {
-            font-size: 1.25rem;
-            margin-bottom: 20px;
-            color: #6b7280;
-        }
-
-        .buy-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #3b82f6;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-
-            &:hover {
-                background-color: #2563eb;
-            }
-
-            &:disabled {
-                background-color: #9ca3af;
-                cursor: not-allowed;
-            }
-        }
-    }
-}
-
