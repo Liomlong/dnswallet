@@ -1,15 +1,15 @@
 import './App.scss';
 import './trackers';
-import {THEME, TonConnectUIProvider} from "@tonconnect/ui-react";
-import {Footer} from "./components/Footer/Footer";
-import {Header} from "./components/Header/Header";
-import {TxForm} from "./components/TxForm/TxForm";
+import { THEME, TonConnectUIProvider } from "@tonconnect/ui-react";
+import { Footer } from "./components/Footer/Footer";
+import { Header } from "./components/Header/Header";
+import TxForm from "./components/TxForm/TxForm"; // 确保这里是使用 default export 方式导入
 
 function App() {
   return (
     <TonConnectUIProvider
       manifestUrl="https://ton-connect.github.io/demo-dapp-with-wallet/tonconnect-manifest.json"
-      uiPreferences={{theme: THEME.DARK}}
+      uiPreferences={{ theme: THEME.DARK }}
       walletsListConfiguration={{
         includeWallets: [
           {
@@ -97,13 +97,13 @@ function App() {
       }}
     >
       <div className="app">
-        <Header/>
-        <TxForm/>
+        <Header />
+        <TxForm /> {/* 确保这里引用的是通过 default export 方式导出的 TxForm */}
         {/*<TonProofDemo />*/}
-        <Footer/>
+        <Footer />
       </div>
     </TonConnectUIProvider>
   )
 }
 
-export default App
+export default App;
