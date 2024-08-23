@@ -6,10 +6,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'docs'
+    outDir: 'docs',  // 使用默认的 'dist' 目录
   },
-  // @ts-ignore
-  base: process.env.GH_PAGES ? '/demo-dapp-with-wallet/' : './',
+  base: '/',  // 设置根路径
   server: {
     fs: {
       allow: ['../sdk', './'],
