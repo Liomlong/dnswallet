@@ -10,19 +10,27 @@ function App() {
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-    // 检查是否在 Telegram 小程序环境中运行
-    if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      console.log('Telegram WebApp:', tg); // 调试信息：输出 Telegram WebApp 对象
-      if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-        const fetchedUsername = tg.initDataUnsafe.user.username || 'Guest';
-        console.log('Fetched Username:', fetchedUsername); // 调试信息：输出获取到的用户名
-        setUsername(fetchedUsername);
+    if (typeof window !== 'undefined') {
+      if (window.Telegram && window.Telegram.WebApp) {
+        const tg = window.Telegram.WebApp;
+        console.log('Telegram WebApp:', tg);
+
+        if (tg.initDataUnsafe) {
+          console.log('initDataUnsafe:', tg.initDataUnsafe);
+
+          if (tg.initDataUnsafe.user) {
+            const fetchedUsername = tg.initDataUnsafe.user.username || 'Guest';
+            console.log('Fetched Username:', fetchedUsername);
+            setUsername(fetchedUsername);
+          } else {
+            console.warn("User object is unavailable in initDataUnsafe.");
+          }
+        } else {
+          console.warn("initDataUnsafe is unavailable.");
+        }
       } else {
-        console.warn("User data is unavailable in Telegram WebApp");
+        console.warn("Not running inside Telegram WebApp.");
       }
-    } else {
-      console.warn("Not running inside Telegram WebApp");
     }
   }, []);
 
