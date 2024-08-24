@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import './style.scss';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-import btoa from 'btoa'; // 确保在客户端环境中使用或正确导入
 
 interface Domain {
   domain: string;
@@ -9,19 +8,25 @@ interface Domain {
   available: boolean;
 }
 
+// 假设 Wallet 对象包含 user 属性
+interface Wallet {
+  user: {
+    username: string;
+  };
+}
+
 const domainsForSale: Domain[] = [
     { domain: 'act.tg', price: '5000000', available: true },
-    { domain: 'add.tg', price: '5000000', available: false },
-    // 继续添加其他域名和价格...
+    // 更多域名...
 ];
 
 const TxForm: React.FC = () => {
     const [tonConnectUI] = useTonConnectUI();
-    const wallet = useTonWallet();
+    const wallet = useTonWallet() as Wallet; // 断言 wallet 为 Wallet 类型
     const [purchasingDomain, setPurchasingDomain] = useState<string | null>(null);
 
     const handlePurchase = useCallback((domain: Domain) => {
-        if (!wallet || !wallet.user) {
+        if (!wallet) {
             tonConnectUI.connectWallet();
             return;
         }
