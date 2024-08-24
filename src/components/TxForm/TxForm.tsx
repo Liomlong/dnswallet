@@ -7,6 +7,8 @@ const domainsForSale = [
     { domain: 'act.tg', price: '5000000', available: true },
     { domain: 'add.tg', price: '5000000', available: false },
     { domain: 'are.tg', price: '5000000', available: true },
+    { domain: 'arm.tg', price: '5000000', available: true },
+    { domain: 'ape.tg', price: '5000000', available: false },
     // 继续添加其他域名和价格...
 ];
 
@@ -55,8 +57,8 @@ const TxForm: React.FC = () => {
                     <div className="domain-card" key={domain.domain}>
                         <h3>{domain.domain}</h3>
                         <p className="price">
-                            {Number(domain.price) / 1e9}
-                            <img src="https://www.pig.com/ton_symbol.svg" alt="TON" className="ton-symbol" />
+                            {Number(domain.price) / 1e9} TON
+                            <img src="https://www.pig.tg/ton_symbol.svg" alt="TON" className="ton-symbol" />
                         </p>
                         <button
                             className={`buy-button ${domain.available ? '' : 'sold'}`}
