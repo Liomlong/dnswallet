@@ -1,7 +1,3 @@
-// 在文件顶部添加类型声明
-interface Window {
-  Telegram: any;
-}
 
 import React, { useEffect, useState } from 'react';
 import './App.scss';
