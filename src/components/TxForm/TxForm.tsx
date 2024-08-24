@@ -1,41 +1,45 @@
 import React, { useCallback, useState } from 'react';
 import './style.scss';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-import btoa from 'btoa'; // 用于Base64编码
+import btoa from 'btoa'; // 确保在客户端环境中使用或正确导入
 
-const domainsForSale = [
+interface Domain {
+  domain: string;
+  price: string;
+  available: boolean;
+}
+
+const domainsForSale: Domain[] = [
     { domain: 'act.tg', price: '5000000', available: true },
     { domain: 'add.tg', price: '5000000', available: false },
-    // 更多域名...
+    // 继续添加其他域名和价格...
 ];
 
-const TxForm = () => {
+const TxForm: React.FC = () => {
     const [tonConnectUI] = useTonConnectUI();
     const wallet = useTonWallet();
-    const [purchasingDomain, setPurchasingDomain] = useState(null);
+    const [purchasingDomain, setPurchasingDomain] = useState<string | null>(null);
 
-    const handlePurchase = useCallback((domain) => {
-        if (!wallet) {
+    const handlePurchase = useCallback((domain: Domain) => {
+        if (!wallet || !wallet.user) {
             tonConnectUI.connectWallet();
             return;
         }
 
         setPurchasingDomain(domain.domain);
-
-        // 构建Payload信息
         const payloadData = JSON.stringify({
             domain: domain.domain,
             price: domain.price,
-            buyerUsername: wallet.user ? wallet.user.username : 'unknown'
+            buyerUsername: wallet.user.username
         });
-        const encodedPayload = btoa(payloadData); // 对信息进行Base64编码
+        const encodedPayload = btoa(payloadData);
 
-        const transaction = {
+        const transaction: SendTransactionRequest = {
             validUntil: Math.floor(Date.now() / 1000) + 600,
             messages: [{
                 address: 'EQAA5oqBWLaH2Wo1sDLC6tuTe4Ro7Mg3c1yw7tf5r-Pcbgfm',
                 amount: domain.price,
-                payload: encodedPayload, // 添加编码后的payload
+                payload: encodedPayload,
                 stateInit: ''
             }]
         };
