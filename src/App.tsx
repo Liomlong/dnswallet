@@ -7,7 +7,7 @@ import { Header } from "./components/Header/Header";
 import TxForm from "./components/TxForm/TxForm";
 
 function App() {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('Guest'); // 默认值为 'Guest'
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -48,7 +48,7 @@ function App() {
       }}
     >
       <div className="app">
-        <Header title={`@${username || 'Guest'}：Pig.tg Ton DNS`} />
+        <Header title={`@${username}：Pig.tg Ton DNS`} />
         <TxForm />
         <Footer />
       </div>
