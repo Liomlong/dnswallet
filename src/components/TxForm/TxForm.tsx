@@ -1,40 +1,43 @@
 import React, { useCallback, useState } from 'react';
 import './style.scss';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import btoa from 'btoa'; // 用于Base64编码
 
-// 域名和状态列表
 const domainsForSale = [
     { domain: 'act.tg', price: '5000000', available: true },
     { domain: 'add.tg', price: '5000000', available: false },
-    { domain: 'are.tg', price: '5000000', available: true },
-    { domain: 'arm.tg', price: '5000000', available: true },
-    { domain: 'ape.tg', price: '5000000', available: false },
-    // 继续添加其他域名和价格...
+    // 更多域名...
 ];
 
-const TxForm: React.FC = () => {
+const TxForm = () => {
     const [tonConnectUI] = useTonConnectUI();
-    const wallet = useTonWallet(); // 获取当前连接的钱包状态
-    const [purchasingDomain, setPurchasingDomain] = useState<string | null>(null);
+    const wallet = useTonWallet();
+    const [purchasingDomain, setPurchasingDomain] = useState(null);
 
-    const handlePurchase = useCallback((domain: { domain: string; price: string, available: boolean }) => {
+    const handlePurchase = useCallback((domain) => {
         if (!wallet) {
-            // 如果钱包未连接，弹出连接钱包窗口
             tonConnectUI.connectWallet();
             return;
         }
 
         setPurchasingDomain(domain.domain);
 
-        const transaction: SendTransactionRequest = {
+        // 构建Payload信息
+        const payloadData = JSON.stringify({
+            domain: domain.domain,
+            price: domain.price,
+            buyerUsername: wallet.user ? wallet.user.username : 'unknown'
+        });
+        const encodedPayload = btoa(payloadData); // 对信息进行Base64编码
+
+        const transaction = {
             validUntil: Math.floor(Date.now() / 1000) + 600,
-            messages: [
-                {
-                    address: 'EQAA5oqBWLaH2Wo1sDLC6tuTe4Ro7Mg3c1yw7tf5r-Pcbgfm', // 你的钱包地址
-                    amount: domain.price,
-                    stateInit: '' // 如果需要，可以添加 stateInit
-                }
-            ]
+            messages: [{
+                address: 'EQAA5oqBWLaH2Wo1sDLC6tuTe4Ro7Mg3c1yw7tf5r-Pcbgfm',
+                amount: domain.price,
+                payload: encodedPayload, // 添加编码后的payload
+                stateInit: ''
+            }]
         };
 
         tonConnectUI.sendTransaction(transaction)
@@ -56,10 +59,7 @@ const TxForm: React.FC = () => {
                 {domainsForSale.map((domain) => (
                     <div className="domain-card" key={domain.domain}>
                         <h3>{domain.domain}</h3>
-                        <p className="price">
-                            {Number(domain.price) / 1e9} TON
-                            <img src="https://www.pig.tg/ton_symbol.svg" alt="TON" className="ton-symbol" />
-                        </p>
+                        <p className="price">{Number(domain.price) / 1e9} TON</p>
                         <button
                             className={`buy-button ${domain.available ? '' : 'sold'}`}
                             onClick={() => handlePurchase(domain)}
