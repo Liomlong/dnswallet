@@ -47,7 +47,7 @@ function App() {
       }}
     >
       <div className="app">
-        <Header title={`@${username}：Pig.tg Ton DNS`} />
+        <Header title={`Pig.tg Ton DNS`} />
         <TxForm />
         <Footer />
       </div>
