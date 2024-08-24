@@ -7,32 +7,29 @@ import { Header } from "./components/Header/Header";
 import TxForm from "./components/TxForm/TxForm";
 
 function App() {
-  const [username, setUsername] = useState('Guest'); // 默认值为 'Guest'
+  const [username, setUsername] = useState('Guest'); // 默认用户为 'Guest'
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      console.log('Window Object:', window); // 输出整个 window 对象
+    // 检查是否在 Telegram WebApp 环境中运行
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      console.log('Running inside Telegram WebApp:', tg); // 日志输出，确认正在 Telegram 环境中运行
 
-      if (window.Telegram && window.Telegram.WebApp) {
-        const tg = window.Telegram.WebApp;
-        console.log('Telegram WebApp:', tg);
-
-        if (tg.initDataUnsafe) {
-          console.log('initDataUnsafe:', tg.initDataUnsafe);
-
-          if (tg.initDataUnsafe.user) {
-            const fetchedUsername = tg.initDataUnsafe.user.username || 'Guest';
-            console.log('Fetched Username:', fetchedUsername);
-            setUsername(fetchedUsername);
-          } else {
-            console.warn("User object is unavailable in initDataUnsafe.");
-          }
+      // 检查 initDataUnsafe 是否存在，并尝试获取用户信息
+      if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        console.log('initDataUnsafe:', tg.initDataUnsafe); // 输出未加密的初始化数据
+        if (tg.initDataUnsafe.user.username) {
+          const fetchedUsername = tg.initDataUnsafe.user.username;
+          console.log('Fetched Username:', fetchedUsername); // 输出获取到的用户名
+          setUsername(fetchedUsername);
         } else {
-          console.warn("initDataUnsafe is unavailable.");
+          console.warn("Username is not available."); // 用户名不可用时的警告
         }
       } else {
-        console.warn("Not running inside Telegram WebApp.");
+        console.warn("initDataUnsafe or user object is unavailable."); // initDataUnsafe 或用户对象不可用时的警告
       }
+    } else {
+      console.warn("Not running inside Telegram WebApp."); // 不在 Telegram 环境中运行时的警告
     }
   }, []);
 
@@ -42,11 +39,11 @@ function App() {
       uiPreferences={{ theme: THEME.DARK }}
       walletsListConfiguration={{
         includeWallets: [
-          // Wallet configurations...
+          // 钱包配置信息，根据需要填充
         ]
       }}
       actionsConfiguration={{
-        twaReturnUrl: 'https://t.me/tc_twa_demo_bot/start'
+        twaReturnUrl: 'https://t.me/pigtgbot/start' // 设置返回 URL
       }}
     >
       <div className="app">
