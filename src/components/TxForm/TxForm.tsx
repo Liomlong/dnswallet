@@ -1,56 +1,54 @@
-import React, { useCallback, useState, useContext } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import './style.scss';
-import { SendTransactionRequest, useTonConnectUI, useTonWallet, WebAppContext } from "@tonconnect/ui-react";
+import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 
-// 域名和状态列表
 const domainsForSale = [
     { domain: 'act.tg', price: '5000000', available: true },
     { domain: 'add.tg', price: '5000000', available: false },
-    { domain: 'are.tg', price: '5000000', available: true },
-    { domain: 'arm.tg', price: '5000000', available: true },
-    { domain: 'ape.tg', price: '5000000', available: false },
-    // 继续添加其他域名和价格...
+    // 更多域名...
 ];
 
 const TxForm: React.FC = () => {
     const [tonConnectUI] = useTonConnectUI();
-    const wallet = useTonWallet(); // 获取当前连接的钱包状态
+    const wallet = useTonWallet();
     const [purchasingDomain, setPurchasingDomain] = useState<string | null>(null);
-    const webAppContext = useContext(WebAppContext); // 从 Ton WebApp API 获取用户上下文
+    const [username, setUsername] = useState<string>('Guest');
+
+    useEffect(() => {
+        if (window.Telegram && window.Telegram.WebApp) {
+            setUsername(window.Telegram.WebApp.initDataUnsafe?.user?.username || 'Guest');
+        }
+    }, []);
 
     const handlePurchase = useCallback((domain: { domain: string; price: string, available: boolean }) => {
         if (!wallet) {
-            // 如果钱包未连接，弹出连接钱包窗口
             tonConnectUI.connectWallet();
             return;
         }
 
         setPurchasingDomain(domain.domain);
+        const payload = `${domain.domain};${domain.price};${username}`;
 
-        const payload = `${domain.domain};${domain.price};${webAppContext.user.username}`; // 创建包含域名，价格和用户名的payload
         const transaction: SendTransactionRequest = {
             validUntil: Math.floor(Date.now() / 1000) + 600,
-            messages: [
-                {
-                    address: 'EQAA5oqBWLaH2Wo1sDLC6tuTe4Ro7Mg3c1yw7tf5r-Pcbgfm', // 你的钱包地址
-                    amount: domain.price,
-                    payload, // 将payload添加到交易信息中
-                    stateInit: '' // 如果需要，可以添加 stateInit
-                }
-            ]
+            messages: [{
+                address: 'EQAA5oqBWLaH2Wo1sDLC6tuTe4Ro7Mg3c1yw7tf5r-Pcbgfm',
+                amount: domain.price,
+                payload
+            }]
         };
 
         tonConnectUI.sendTransaction(transaction)
             .then(() => {
-                alert(`成功购买域名：${domain.domain}`);
+                alert(`Successfully purchased domain: ${domain.domain}`);
                 setPurchasingDomain(null);
             })
             .catch((error) => {
                 console.error(error);
-                alert('购买失败，请重试。');
+                alert('Failed to purchase domain, please retry.');
                 setPurchasingDomain(null);
             });
-    }, [tonConnectUI, wallet, webAppContext.user.username]); // 添加依赖于用户名的更新
+    }, [tonConnectUI, wallet, username]);
 
     return (
         <div className="tx-form container">
@@ -59,10 +57,7 @@ const TxForm: React.FC = () => {
                 {domainsForSale.map((domain) => (
                     <div className="domain-card" key={domain.domain}>
                         <h3>{domain.domain}</h3>
-                        <p className="price">
-                            {Number(domain.price) / 1e9} TON
-                            <img src="https://www.pig.tg/ton_symbol.svg" alt="TON" className="ton-symbol" />
-                        </p>
+                        <p className="price">{Number(domain.price) / 1e9} TON</p>
                         <button
                             className={`buy-button ${domain.available ? '' : 'sold'}`}
                             onClick={() => handlePurchase(domain)}
