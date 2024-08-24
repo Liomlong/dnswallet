@@ -11,6 +11,8 @@ function App() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      console.log('Window Object:', window); // 输出整个 window 对象
+
       if (window.Telegram && window.Telegram.WebApp) {
         const tg = window.Telegram.WebApp;
         console.log('Telegram WebApp:', tg);
