@@ -310,6 +310,13 @@
     "deepmerge" "^4.2.2"
     "ua-parser-js" "^1.0.35"
 
+"@types/node@^22.5.0", "@types/node@>= 14":
+  "integrity" "sha512-DkFrJOe+rfdHTqqMg0bSNlGlQ85hSoh2TPzZyhHsXnMtligRWpxUySiyw8FY14ITt24HVCiQPWxS3KO/QlGmWg=="
+  "resolved" "https://registry.npmjs.org/@types/node/-/node-22.5.0.tgz"
+  "version" "22.5.0"
+  dependencies:
+    "undici-types" "~6.19.2"
+
 "@types/prop-types@*":
   "integrity" "sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w=="
   "resolved" "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz"
@@ -899,6 +906,11 @@
   "integrity" "sha512-Aq5ppTOfvrCMgAPneW1HfWj66Xi7XL+/mIy996R1/CLS/rcyJQm6QZdsKrUeivDFQ+Oc9Wyuwor8Ze8peEoUoQ=="
   "resolved" "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-1.0.38.tgz"
   "version" "1.0.38"
+
+"undici-types@~6.19.2":
+  "integrity" "sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw=="
+  "resolved" "https://registry.npmjs.org/undici-types/-/undici-types-6.19.8.tgz"
+  "version" "6.19.8"
 
 "update-browserslist-db@^1.0.10":
   "integrity" "sha512-OztqDenkfFkbSG+tRxBeAnCVPckDBcvibKd35yDONx6OU8N7sqgwc7rCbkJ/WcYtVRZ4ba68d6byhC21GFh7sQ=="
