@@ -4,13 +4,12 @@ import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconne
 
 const domainsForSale = [
   { domain: 'act.tg', price: '5000000', available: true },
-  { domain: 'add.tg', price: '5000000', available: false },
-  // more domains...
+  // 更多域名...
 ];
 
 const TxForm: React.FC = () => {
   const [tonConnectUI] = useTonConnectUI();
-  const wallet = useTonWallet() as ExtendedWallet; // 使用扩展的 Wallet 类型
+  const wallet = useTonWallet(); // 使用 Wallet 而不是 ExtendedWallet
   const [purchasingDomain, setPurchasingDomain] = useState<string | null>(null);
 
   const handlePurchase = useCallback((domain: { domain: string; price: string, available: boolean }) => {
@@ -22,19 +21,12 @@ const TxForm: React.FC = () => {
 
     setPurchasingDomain(domain.domain);
 
-    // 这里使用 base64 编码 payload
-    const encodedPayload = btoa(JSON.stringify({
-      domain: domain.domain,
-      price: domain.price,
-      buyer: wallet.user.username,
-    }));
-
     const transaction: SendTransactionRequest = {
       validUntil: Math.floor(Date.now() / 1000) + 600,
       messages: [{
-        address: '你的钱包地址',
+        address: 'EQAA5oqBWLaH2Wo1sDLC6tuTe4Ro7Mg3c1yw7tf5r-Pcbgfm',
         amount: domain.price,
-        payload: encodedPayload, // 添加编码后的 payload
+        payload: '你的payload', // 确保正确处理 payload
       }]
     };
 
