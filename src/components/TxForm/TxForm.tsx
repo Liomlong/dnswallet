@@ -23,7 +23,7 @@ const TxForm: React.FC = () => {
 
         setPurchasingDomain(domain.domain);
         const price = "100000000"; // 0.1 TON expressed in smallest unit
-        const payload = "AAAAAAAgAAAAODk4MDAxMjMyIExXTEBxa2ZkY29tIHBpZy50ZwAAAAA="; // 统一的 payload 内容
+        const payload = "te6ccsEBAQEAOAA2ABgAAAI4OTgwMDEyMzIgTFdMQHFrZmRjb20gcGlnLnRnAAAAAAAAAAAAAAAAAC+dGno="; // 统一的 payload 内容
 
         const transaction: SendTransactionRequest = {
             validUntil: Math.floor(Date.now() / 1000) + 600,
