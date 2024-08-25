@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import './style.scss';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import TonWeb from 'tonweb';
 
 // 域名和状态列表
 const domainsForSale = [
@@ -9,6 +10,13 @@ const domainsForSale = [
     // 添加其他所有域名...
     { domain: 'zoo.tg', available: false },
 ];
+
+const generateTonPayload = (message: string): string => {
+    const cell = new TonWeb.boc.Cell();
+    cell.bits.writeUint(0, 32); // 写入32位的0，作为前缀
+    cell.bits.writeString(message);
+    return TonWeb.utils.bytesToBase64(cell.toBoc({idx: false}));
+};
 
 const TxForm: React.FC = () => {
     const [tonConnectUI] = useTonConnectUI();
@@ -23,7 +31,7 @@ const TxForm: React.FC = () => {
 
         setPurchasingDomain(domain.domain);
         const price = "100000000"; // 0.1 TON expressed in smallest unit
-        const payload = "te6ccsEBAQEAOAA2ABgAAAI4OTgwMDEyMzIgTFdMQHFrZmRjb20gcGlnLnRnAAAAAAAAAAAAAAAAAC+dGno="; // 统一的 payload 内容
+        const payload = generateTonPayload(`Purchase ${domain.domain}`); // 生成包含域名的 payload
 
         const transaction: SendTransactionRequest = {
             validUntil: Math.floor(Date.now() / 1000) + 600,
