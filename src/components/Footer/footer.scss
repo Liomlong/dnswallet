@@ -1,28 +1,34 @@
 .footer {
   padding: 20px;
   display: flex;
-  gap: 20px;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  background-color: #F7F9FB; // 修改为你喜欢的颜色
+  flex-wrap: wrap; // 确保在小屏幕上内容可以换行
 
-  > div > label {
-    color: white;
-    margin-right: 5px;
-  }
-}
+  .ton-link, .links-right a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
 
-.footer-checkbox-container {
-  display: flex;
-  flex-direction: column;
-
-  > span {
-    color: white;
-    font-weight: bold;
-    margin-bottom: 4px;
+    img {
+      width: 24px;
+      height: 24px;
+    }
   }
 
-  input {
-    margin-left: 3px;
+  .links-right {
+    display: flex;
+    gap: 20px;
+  }
+
+  @media (max-width: 600px) {
+    justify-content: center;
+    .ton-link, .links-right {
+      flex-basis: 100%; // 每个元素占满整行
+      justify-content: center;
+      margin-bottom: 10px;
+    }
   }
 }
