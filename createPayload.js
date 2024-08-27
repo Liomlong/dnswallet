@@ -10,18 +10,7 @@ function createPayload(domain) {
   return body.toBoc().toString("base64");
 }
 
-const domains = ['act.tg', 'aim.tg', 'ale.tg', 'are.tg', 'arm.tg', 'awe.tg', 'bad.tg', 'bag.tg', 
-  'bar.tg', 'bay.tg', 'bee.tg', 'beg.tg', 'big.tg', 'bin.tg', 'boy.tg', 'bra.tg', 
-  'bud.tg', 'but.tg', 'cab.tg', 'can.tg', 'cup.tg', 'dad.tg', 'die.tg', 'dig.tg', 
-  'dry.tg', 'dug.tg', 'eat.tg', 'end.tg', 'ego.tg', 'elf.tg', 'elm.tg', 'fan.tg', 
-  'far.tg', 'fat.tg', 'fed.tg', 'few.tg', 'fig.tg', 'fin.tg', 'gun.tg', 'had.tg', 
-  'ham.tg', 'hat.tg', 'has.tg', 'hen.tg', 'him.tg', 'how.tg', 'hum.tg', 'ink.tg', 
-  'ion.tg', 'its.tg', 'jar.tg', 'kid.tg', 'kit.tg', 'lag.tg', 'lap.tg', 'leg.tg', 
-  'let.tg', 'lie.tg', 'men.tg', 'mix.tg', 'mob.tg', 'mom.tg', 'mud.tg', 'oak.tg', 
-  'our.tg', 'out.tg', 'pat.tg', 'pen.tg', 'pie.tg', 'pot.tg', 'put.tg', 'rig.tg', 
-  'rip.tg', 'rob.tg', 'rod.tg', 'rug.tg', 'sad.tg', 'sap.tg', 'sat.tg', 'say.tg', 
-  'see.tg', 'set.tg', 'she.tg', 'sit.tg', 'sly.tg', 'tea.tg', 'tie.tg', 'tot.tg', 
-  'use.tg', 'war.tg', 'was.tg', 'way.tg', 'wet.tg', 'wit.tg'];  // 正确列出所有域名
+const domains = ['are.tg', 'bad.tg', 'bag.tg', 'bar.tg', 'bay.tg', 'bed.tg', 'bee.tg', 'big.tg', 'bin.tg', 'boy.tg', 'but.tg', 'buy.tg', 'can.tg', 'cap.tg', 'car.tg', 'cat.tg', 'cut.tg', 'dad.tg', 'did.tg', 'dog.tg', 'dot.tg', 'dry.tg', 'eat.tg', 'end.tg', 'fan.tg', 'far.tg', 'fat.tg', 'fee.tg', 'few.tg', 'fig.tg', 'fun.tg', 'gas.tg', 'get.tg', 'god.tg', 'gun.tg', 'hat.tg', 'has.tg', 'her.tg', 'hey.tg', 'him.tg', 'hot.tg', 'how.tg', 'job.tg', 'joy.tg', 'key.tg', 'kid.tg', 'lab.tg', 'leg.tg', 'let.tg', 'lie.tg', 'low.tg', 'man.tg', 'map.tg', 'men.tg', 'mix.tg', 'mom.tg', 'net.tg', 'new.tg', 'not.tg', 'now.tg', 'one.tg', 'our.tg', 'out.tg', 'pen.tg', 'pet.tg', 'pie.tg', 'pig.tg', 'put.tg', 'red.tg', 'run.tg', 'sad.tg', 'see.tg', 'set.tg', 'she.tg', 'sky.tg', 'sun.tg', 'tea.tg', 'top.tg', 'try.tg', 'two.tg', 'use.tg', 'war.tg', 'way.tg', 'win.tg', 'yes.tg', 'you.tg', 'zip.tg', 'zoo.tg'];  // 正确列出所有域名
 
 const payloads = domains.map(domain => ({
   domain,

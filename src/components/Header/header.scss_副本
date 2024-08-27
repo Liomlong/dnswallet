@@ -1,0 +1,37 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 25px;
+
+  > span {
+    font-size: 30px;
+    line-height: 34px;
+    color: rgba(102,170,238,0.91);
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 525px) {
+  header {
+    flex-direction: column;
+    gap: 10px;
+
+    > *:nth-child(2) {
+      align-self: flex-end;
+    }
+  }
+}
+.my-domains-button {
+  background-color: #333;  // 按钮背景颜色
+  color: white;            // 按钮文字颜色
+  border: none;            // 无边框
+  padding: 10px 20px;      // 内边距
+  margin-left: 10px;       // 左边距
+  cursor: pointer;         // 鼠标样式
+
+  &:hover {
+    background-color: #555; // 悬停时的背景颜色
+  }
+}
+

@@ -1,20 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import './style.scss';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-
-const domainsForSale = [
-  { domain: 'act.tg', price: '0.1', available: true, payload: 'te6cckEBAQEAGwAAMgAAAABCdXkgYWN0LnRnIE5GVEBQaWcudGcYNvBL' },
-  { domain: 'aim.tg', price: '0.11', available: true, payload: 'te6cckEBAQEAGwAAMgAAAABCdXkgYWltLnRnIE5GVEBQaWcudGceHKoS' },
-  // 更多域名...
-  { domain: 'wit.tg', price: '1.0', available: true, payload: 'te6cckEBAQEAGwAAMgAAAABCdXkgd2l0LnRnIE5GVEBQaWcudGfEo0cK' }
-];
+import { domainsForSale } from './domains_data'; // 引入domains_data.js
 
 const TxForm: React.FC = () => {
   const [tonConnectUI] = useTonConnectUI();
   const wallet = useTonWallet();
   const [purchasingDomain, setPurchasingDomain] = useState<string | null>(null);
 
-  const handlePurchase = useCallback((domain: { domain: string; price: string; available: boolean; payload: string }) => {
+  const handlePurchase = useCallback((domain: { domain: string; price: string; status: string; payload: string }) => {
     if (!wallet) {
       tonConnectUI.connectWallet();
       return;
@@ -50,13 +44,15 @@ const TxForm: React.FC = () => {
         {domainsForSale.map((domain) => (
           <div className="domain-card" key={domain.domain}>
             <h3>{domain.domain}</h3>
-            <p className="price">{domain.price} TON</p>
+            <p className="price">
+              {domain.price} <img src="/ton_symbol.svg" alt="TON" className="ton-symbol"/>
+            </p>
             <button
-              className={`buy-button ${domain.available ? '' : 'sold'}`}
+              className={`buy-button ${domain.status === 'Available' ? '' : 'sold'}`}
               onClick={() => handlePurchase(domain)}
-              disabled={!domain.available || purchasingDomain === domain.domain}
+              disabled={domain.status !== 'Available' || purchasingDomain === domain.domain}
             >
-              {domain.available ? (purchasingDomain === domain.domain ? 'Processing...' : 'Buy') : 'Sold'}
+              {domain.status === 'Available' ? (purchasingDomain === domain.domain ? 'Processing...' : 'Buy') : 'Sold'}
             </button>
           </div>
         ))}
