@@ -1,14 +1,21 @@
 import React, { useCallback, useState } from 'react';
 import './style.scss';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-import { domainsForSale } from './domains_data'; // 引入domains_data.js
+import { domainsForSale } from './domains_data'; // 引入 domains_data.js
+
+interface Domain {
+  domain: string;
+  status: string;
+  price: number;
+  payload: string;
+}
 
 const TxForm: React.FC = () => {
   const [tonConnectUI] = useTonConnectUI();
   const wallet = useTonWallet();
   const [purchasingDomain, setPurchasingDomain] = useState<string | null>(null);
 
-  const handlePurchase = useCallback((domain: { domain: string; price: string; status: string; payload: string }) => {
+  const handlePurchase = useCallback((domain: Domain) => {
     if (!wallet) {
       tonConnectUI.connectWallet();
       return;
@@ -20,7 +27,7 @@ const TxForm: React.FC = () => {
       validUntil: Math.floor(Date.now() / 1000) + 600,
       messages: [{
         address: 'EQAA5oqBWLaH2Wo1sDLC6tuTe4Ro7Mg3c1yw7tf5r-Pcbgfm',
-        amount: domain.price,
+        amount: domain.price.toString(),
         payload: domain.payload,
       }]
     };
