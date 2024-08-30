@@ -1,4 +1,3 @@
-// domains_data.d.ts
 export interface DomainForSale {
   domain: string;
   status: string;

@@ -1,21 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import './style.scss';
 import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-import { domainsForSale } from './domains_data'; // 引入 domains_data.js
-
-interface Domain {
-  domain: string;
-  status: string;
-  price: number;
-  payload: string;
-}
+import { domainsForSale, DomainForSale } from './domains_data';
 
 const TxForm: React.FC = () => {
   const [tonConnectUI] = useTonConnectUI();
   const wallet = useTonWallet();
   const [purchasingDomain, setPurchasingDomain] = useState<string | null>(null);
 
-  const handlePurchase = useCallback((domain: Domain) => {
+  const handlePurchase = useCallback((domain: DomainForSale) => {
     if (!wallet) {
       tonConnectUI.connectWallet();
       return;
