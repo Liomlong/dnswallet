@@ -2,41 +2,72 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #F7F9FB;
+  background-color: #ffffff;
   padding: 10px 20px;
+  width: 100%;
+  box-sizing: border-box;
 
   .title {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-size: 1.5em;
-    color: #0098EA;
+    color: #3498db;
     font-family: 'Inter', sans-serif;
+    text-align: center;
   }
 
-  .buttons {
+  .button-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
     gap: 10px;
   }
 
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+  }
+
   .button {
-    background-color: transparent;
-    color: #0098EA;
-    border: 2px solid #1E2337;
-    padding: 8px 16px;
-    border-radius: 8px;
+    flex: 1;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
     font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d1d1d1;
+    background-color: #f8f9fa;
+    color: #333333;
 
     &:hover {
-      background-color: #0098EA;
-      color: white;
+      background-color: #e9ecef;
+    }
+  }
+
+  :global(.ton-button) {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 0 20px;
+
+    &:hover {
+      background-color: darken(#3498db, 5%);
     }
   }
 
   .modal {
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
@@ -49,43 +80,35 @@ header {
 
     .modal-content {
       background-color: #fefefe;
-      padding: 30px;
+      padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       width: 90%;
-      max-width: 600px;
+      max-width: 400px;
       font-family: 'Inter', sans-serif;
+      max-height: 80vh;
+      overflow-y: auto;
     }
 
     h2 {
-      color: #0098EA;
-      margin-bottom: 20px;
-      font-size: 24px;
-    }
-
-    h3 {
-      color: #1E2337;
-      margin-top: 20px;
-      margin-bottom: 10px;
-      font-size: 18px;
+      color: #3498db;
+      margin-bottom: 15px;
+      font-size: 20px;
+      text-align: center;
     }
 
     .modal-body {
       color: #333;
       line-height: 1.6;
 
-      ul {
-        padding-left: 20px;
-        margin-bottom: 20px;
+      p {
+        margin-bottom: 10px;
+        text-align: center;
       }
 
-      a {
-        color: #0098EA;
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
+      ul {
+        padding-left: 20px;
+        margin-bottom: 10px;
       }
     }
 
@@ -99,8 +122,50 @@ header {
 
       &:hover,
       &:focus {
-        color: #1E2337;
+        color: #2c3e50;
         text-decoration: none;
+      }
+    }
+
+    .sold-domains-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .domain-item {
+      background-color: #f0f0f0;
+      padding: 5px;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    .button-container {
+      max-width: 100%;
+    }
+
+    .button, :global(.ton-button) {
+      font-size: 12px;
+      padding: 0 12px;
+    }
+
+    .modal {
+      .modal-content {
+        padding: 15px;
+      }
+
+      .sold-domains-list {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      }
+
+      .domain-item {
+        font-size: 12px;
       }
     }
   }
