@@ -20,7 +20,7 @@ const TxForm: React.FC = () => {
       validUntil: Math.floor(Date.now() / 1000) + 600,
       messages: [{
         address: 'EQAA5oqBWLaH2Wo1sDLC6tuTe4Ro7Mg3c1yw7tf5r-Pcbgfm',
-        amount: domain.price.toString(),
+        amount: (domain.price * 1_000_000_000).toString(),  // Convert TON to nanoton
         payload: domain.payload,
       }]
     };
@@ -45,7 +45,7 @@ const TxForm: React.FC = () => {
           <div className="domain-card" key={domain.domain}>
             <h3>{domain.domain}</h3>
             <p className="price">
-              {domain.price} <img src="/ton_symbol.svg" alt="TON" className="ton-symbol"/>
+              {domain.price}  <img src="/ton_symbol.svg" alt="TON" className="ton-symbol"/>
             </p>
             <button
               className={`buy-button ${domain.status === 'Available' ? '' : 'sold'}`}
